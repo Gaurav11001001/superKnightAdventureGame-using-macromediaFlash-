@@ -1,0 +1,173 @@
+
+Code for Ball/Character :-
+--------------------------------
+
+onClipEvent (load) {
+var ground:MovieClip = _root.ground;
+var grav:Number = 0;
+var gravity:Number = 2;
+var speed:Number = 7;
+var maxJump:Number = -12;
+var touchingGround:Boolean = false;
+}
+onClipEvent (enterFrame) {
+_y += grav;
+grav += gravity;
+while (ground.hitTest(_x, _y, true)) {
+_y -= gravity;
+grav = 0;
+}
+if (ground.hitTest(_x, _y+5, true)) {
+touchingGround = true;
+} else {
+touchingGround = false;
+}
+if (Key.isDown(Key.RIGHT)) {
+_x += speed;
+}
+if (Key.isDown(Key.LEFT)) {
+_x -= speed;
+}
+if (Key.isDown(Key.UP) && touchingGround) {
+grav = maxJump;
+}
+if (ground.hitTest(_x+(_width/2), _y-(_height/2), true)) {
+_x -= speed;
+}
+if (ground.hitTest(_x-(_width/2), _y-(_height/2), true)) {
+_x += speed;
+}
+if (ground.hitTest(_x, _y-(height), true)) {
+grav = 3;
+}
+}
+
+
+--------------------------------
+--------------------------------
+Code for BaseLine:-
+--------------------------------
+onClipEvent(enterFrame){
+this._visible = false;
+if(_root.char.hitTest(this)){
+_root.char._x =
+_root.char._y =
+}
+}
+--------------------------------
+--------------------------------
+
+
+Code for Camera/Vcam :-
+--------------------------------
+onClipEvent (enterFrame) {
+_y += (_root.char._y-_y)/4;
+_x += (_root.char._x-_x)/4;
+}
+--------------------------------
+--------------------------------
+
+
+
+Floating Ball :- 
+--------------------------------
+onClipEvent (load) {
+var maze1:MovieClip = _root.maze1;
+var grav:Number = 0;
+var gravity:Number = 0;
+var speed:Number = 7;
+var maxJump:Number = 0;
+var touchingmaze1:Boolean = false;
+}
+onClipEvent (enterFrame) {
+if (maze1.hitTest(_x, _y+5, true)) {
+touchingmaze1 = true;
+} else {
+touchingmaze1 = false;
+}
+if (Key.isDown(Key.RIGHT)) {
+_x += speed;
+}
+if (Key.isDown(Key.LEFT)) {
+_x -= speed;
+}
+if (Key.isDown(Key.UP)) {
+grav = 4;
+_y -= grav;
+grav = 0;
+}
+
+if (Key.isDown(Key.DOWN) && !touchingmaze1) {
+grav = 4;
+_y += grav;
+grav = 0;
+}
+
+
+if (maze1.hitTest(_x+(_width/2), _y-(_height/2), true)) {
+_x -= speed;
+}
+if (maze1.hitTest(_x-(_width/2), _y-(_height/2), true)) {
+_x += speed;
+}
+if (maze1.hitTest(_x, _y-(height), true)) {
+grav = 0;
+}
+}
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Decreasing Hp:-
+-------------------------------------------------------------
+
+onClipEvent(enterFrame) {
+if(_root.char.hitTest(this)) {
+_root.vcam.hp.nextFrame();
+}
+}
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+Increase Life when touching the heart and then the heart vanishes :-
+--------------------------------------------------------------
+
+onClipEvent(enterFrame) {
+if(_root.ball.hitTest(this)) {
+    _root.camera.hp.prevFrame();
+	this.nextFrame();
+}
+}
+
+---------------------------------------------------------------
+---------------------------------------------------------------
+
+Decrese life and  restart the game after touching the obstacle :-
+---------------------------------------------------------------
+
+onClipEvent(enterFrame) {
+if(_root.ball.hitTest(this)) {
+	_root.ball._x = ;
+    	_root.ball._y = ;
+    _root.camera.hp.nextFrame();
+}
+} 
+
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+
+Code for making the platform and brick game...
+-----------------------------------------------------------------
+1.) For base line and the ceiling :-
+----------------------------------
+
+onClipEvent(enterFrame){
+if(_root.ball.hitTest(this)){
+_root.ball.gravity = -15;
+}
+}
+
+2.) For the rotation :-
+------------------
+this._rotation += 2;
